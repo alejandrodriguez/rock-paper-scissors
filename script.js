@@ -1,3 +1,8 @@
+const psContainer = document.querySelector('#pscontainer');
+const csContainer = document.querySelector('#cscontainer');
+let playerScore = 0;
+let computerScore = 0;
+
 function computerPlay() {
     let choice = Math.random();
     if (choice <= 1 / 3) {
@@ -9,45 +14,75 @@ function computerPlay() {
     }
 }
 
-function playRound(playerSelection, computerSelection) {
-    if (playerSelection.toLowerCase() === 'rock' && computerSelection === 'rock' || playerSelection.toLowerCase() === 'paper' && computerSelection === 'paper' || playerSelection.toLowerCase() === 'scissors' && computerSelection === 'scissors') {
+function playRound(playerSelection) {
+    let computerSelection = computerPlay ();
+    if (playerSelection === 'rock' && computerSelection === 'rock' || playerSelection === 'paper' && computerSelection === 'paper' || playerSelection === 'scissors' && computerSelection === 'scissors') {
         return 'You tied! Try again.';
-    } else if (playerSelection.toLowerCase() === 'rock' && computerSelection === 'scissors') {
+    } else if (playerSelection === 'rock' && computerSelection === 'scissors') {
         return 'You win! Rock beats scissors.';
-    } else if (playerSelection.toLowerCase() === 'rock' && computerSelection === 'paper') {
+    } else if (playerSelection === 'rock' && computerSelection === 'paper') {
         return 'You lose! Paper beats rock.';
-    } else if (playerSelection.toLowerCase() === 'paper' && computerSelection === 'rock') {
+    } else if (playerSelection === 'paper' && computerSelection === 'rock') {
         return 'You win! Paper beats rock.';
-    } else if (playerSelection.toLowerCase() === 'paper' && computerSelection === 'scissors') {
+    } else if (playerSelection === 'paper' && computerSelection === 'scissors') {
         return 'You lose! Scissors beats paper.';
-    } else if (playerSelection.toLowerCase() === 'scissors' && computerSelection === 'paper') {
+    } else if (playerSelection === 'scissors' && computerSelection === 'paper') {
         return 'You win! Scissors beats paper.';
-    } else if (playerSelection.toLowerCase() === 'scissors' && computerSelection === 'rock') {
+    } else if (playerSelection === 'scissors' && computerSelection === 'rock') {
         return 'You lose! Rock beats scissors.';
     } else {
         return 'Something went horribly wrong.';
     }
 }
 
-let playerScore = 0;
-let computerScore = 0;
+const btnRock = document.querySelector('#btnrock');
+const btnPaper = document.querySelector('#btnpaper');
+const btnScissors = document.querySelector('#btnscissors');
+const btn = document.querySelectorAll('button');
+const result = document.querySelector('#result');
 
-function game() {
-    let playerSelection = prompt('Rock, paper, or scissors? Choose wisely.');
-    let computerSelection = computerPlay();
-    playRound(playerSelection, computerSelection);
-    console.log(playRound(playerSelection,computerSelection));
-    if (playRound(playerSelection, computerSelection) === 'You win! Rock beats scissors.' || playRound(playerSelection, computerSelection) === 'You win! Paper beats rock.' || playRound(playerSelection, computerSelection) === 'You win! Scissors beats paper.') {
-        ++playerScore;
-    } else if (playRound(playerSelection, computerSelection) === 'You lose! Paper beats rock.' || playRound(playerSelection, computerSelection) === 'You lose! Scissors beats paper.' || playRound(playerSelection, computerSelection) === 'You lose! Rock beats scissors.') {
-        ++computerScore;
+btnRock.addEventListener('click', () => {
+    let roundResult = playRound('rock');
+    if (roundResult === 'You win! Rock beats scissors.' || roundResult === 'You win! Paper beats rock.' || roundResult === 'You win! Scissors beats paper.') {
+        psContainer.textContent = ++playerScore;
+    } else if (roundResult === 'You lose! Paper beats rock.' || roundResult === 'You lose! Scissors beats paper.' || roundResult === 'You lose! Rock beats scissors.') {
+        csContainer.textContent = ++computerScore;
     }
-    console.log('Score (Best of 5 Wins)\n\n' + 'You: ' + playerScore + '\nComputer: ' + computerScore);
-    if (playerScore === 3) {
-        console.log('You win best 3 out of 5! Game Over.')
-    } else if (computerScore === 3) {
-        console.log('You lose best 3 out of 5! Game Over.')
-    } else {
-        game();
+    result.textContent = roundResult;
+    if (playerScore == 5) {
+        winner.textContent = 'You win! GGWP!'
+    } else if (computerScore == 5) {
+        winner.textContent = 'The computer wins. GG go next.'
     }
-}
+});
+
+btnPaper.addEventListener('click', () => {
+    let roundResult = playRound('paper');
+    if (roundResult === 'You win! Rock beats scissors.' || roundResult === 'You win! Paper beats rock.' || roundResult === 'You win! Scissors beats paper.') {
+        psContainer.textContent = ++playerScore;
+    } else if (roundResult === 'You lose! Paper beats rock.' || roundResult === 'You lose! Scissors beats paper.' || roundResult === 'You lose! Rock beats scissors.') {
+        csContainer.textContent = ++computerScore;
+    }
+    result.textContent = roundResult;
+    if (playerScore == 5) {
+        winner.textContent = 'You win! GGWP!'
+    } else if (computerScore == 5) {
+        winner.textContent = 'The computer wins. GG go next.'
+    }
+});
+btnScissors.addEventListener('click', () => {
+    let roundResult = playRound('scissors');
+    if (roundResult === 'You win! Rock beats scissors.' || roundResult === 'You win! Paper beats rock.' || roundResult === 'You win! Scissors beats paper.') {
+        psContainer.textContent = ++playerScore;
+    } else if (roundResult === 'You lose! Paper beats rock.' || roundResult === 'You lose! Scissors beats paper.' || roundResult === 'You lose! Rock beats scissors.') {
+        csContainer.textContent = ++computerScore;
+    }
+    result.textContent = roundResult;
+    if (playerScore == 5) {
+        winner.textContent = 'You win! GGWP!'
+    } else if (computerScore == 5) {
+        winner.textContent = 'The computer wins. GG go next.'
+    }
+});
+
+const winner = document.querySelector('#winner');

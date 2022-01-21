@@ -5,10 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
-    <h1>Rock Paper Scissors</h1>
-    <h2>Open the Console and type "game();" to start! </h2>
+    <h1>Rock Paper Scissors. Choose Wisely.</h1>
+    <button id="btnrock">Rock</button>
+    <button id="btnpaper">Paper</button>
+    <button id="btnscissors">Scissors</button>
+    <div>
+        <h3>Score</h3>
+        <p>You: <span id="pscontainer">0</span></p>
+        <p>Computer: <span id="cscontainer">0</span></p>
+        <p id=result></p>
+        <h2 id="winner"></h2>
+    </div>
 </body>
 </html>
